@@ -21,7 +21,26 @@
   - `npm run test-compressString`
 */
 function compression(str) {
-  // Your code here
+  if (!str) return ""; // Handle empty string
+
+  let result = "";
+  let count = 1;
+
+  for (let i = 0; i < str.length; i++) {
+    // If next character is the same, increment count
+    if (str[i] === str[i + 1]) {
+      count++;
+    } else {
+      // Append character and count (if > 1)
+      result += str[i];
+      if (count > 1) {
+        result += count;
+      }
+      count = 1; // Reset count
+    }
+  }
+
+  return result;
 }
 
 module.exports = compression;

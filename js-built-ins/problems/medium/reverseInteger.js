@@ -22,7 +22,14 @@
 */
 
 function reverseInteger(num) {
-  // Your code here
+  // Handle negative numbers
+  const isNegative = num < 0;
+  
+  // Convert to string, remove sign, reverse, convert back to number
+  const reversed = parseInt(Math.abs(num).toString().split('').reverse().join(''), 10);
+
+  // Restore negative sign if needed
+  return isNegative ? -reversed : reversed;
 }
 
 module.exports = reverseInteger;

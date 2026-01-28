@@ -17,6 +17,76 @@
   - `npm run test-calculator`
 */
 
-class Calculator { }
+class Calculator {
+  constructor() {
+    this.result = 0;
+  }
+
+  add(num) {
+    this.result += num;
+  }
+
+  subtract(num) {
+    this.result -= num;
+  }
+
+  multiply(num) {
+    this.result *= num;
+  }
+
+  divide(num) {
+    if (num === 0) {
+      throw new Error("Division by zero");
+    }
+    this.result /= num;
+  }
+
+  clear() {
+    this.result = 0;
+  }
+
+  getResult() {
+    return this.result;
+  }
+
+  calculate(expression) {
+    // Remove extra spaces
+    const cleanExpr = expression.replace(/\s+/g, "");
+
+    // Allow only numbers, operators, decimals, parentheses
+    if (!/^[0-9+\-*/().]+$/.test(cleanExpr)) {
+      throw new Error("Invalid characters in expression");
+    }
+
+    // Basic parentheses validation
+    let balance = 0;
+    for (const char of cleanExpr) {
+      if (char === '(') balance++;
+      if (char === ')') balance--;
+      if (balance < 0) throw new Error("Invalid parentheses");
+    }
+    if (balance !== 0) {
+      throw new Error("Invalid parentheses");
+    }
+
+    try {
+      const value = Function(`"use strict"; return (${cleanExpr})`)();
+
+      if (
+        typeof value !== "number" ||
+        isNaN(value) ||
+        !isFinite(value)
+      ) {
+        throw new Error("Invalid calculation");
+      }
+
+      this.result = value;
+      return value;
+    } catch {
+      throw new Error("Invalid expression");
+    }
+  }
+}
 
 module.exports = Calculator;
+

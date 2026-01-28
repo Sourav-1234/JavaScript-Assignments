@@ -26,7 +26,18 @@
 */
 
 function isPerfectNumber(num) {
-  // Your code here
+  if (num <= 1) return false;
+
+  let sum = 0;
+  
+  // Loop through numbers from 1 to num/2 to find proper divisors
+  for (let i = 1; i <= num / 2; i++) {
+    if (num % i === 0) {
+      sum += i;
+    }
+  }
+
+  return sum === num;
 }
 
 module.exports = { isPerfectNumber };

@@ -21,6 +21,23 @@
   - `npm run test-nonrepeat`
 */
 function nonrepeat(str) {
-  // Your code here
+  if (!str) return null;
+
+  const freq = {};
+
+  // Count frequency of each character
+  for (const char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  // Find first character with frequency 1
+  for (const char of str) {
+    if (freq[char] === 1) {
+      return char;
+    }
+  }
+
+  return null; // If no non-repeating character found
 }
+
 module.exports = nonrepeat;
